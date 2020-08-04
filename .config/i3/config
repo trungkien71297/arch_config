@@ -1,0 +1,259 @@
+#--[i3 config file]-- #
+#-----------backgroung img----(+)----wifi-starting---------
+exec_always --no-startup-id  feh -g 1366x768  --recursive --randomize --bg-fill  /home/windy/Pictures/Wallpapers
+#::::mod touch:::::::
+set $mod Mod1
+
+#::::default Programs::::::::
+set $browser firefox
+set $terminal urxvt
+
+
+# font
+font pango:Monaco, 9
+
+
+#::Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+#:::start a terminal
+bindsym $mod+Return exec urxvt
+bindsym $mod+x exec xterm -e /bin/bash  # xterm
+
+# :::kill focused window
+bindsym $mod+Shift+q kill
+
+# rofi
+bindsym $mod+Shift+d exec --no-startup-id "rofi -show combi -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
+
+#::: start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run -i -fn 'monaco-9:bold:pixelsize=12' -nb '#3F3F3F' -nf '#15B3E8' -sf '#000000' -sb '#F2FA00'
+
+#:::: change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# :::alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+# screenshot
+bindsym Print exec deepin-screenshot -f
+bindsym Shift+Print exec deepin-screenshot -w
+
+#bindsym $mod+Alt+Left workspace prev
+#bindsym $mod+Alt+Right workspace next
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+#::::::::: enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+#:::::::pop-ups for fullscreen
+popup_during_fullscreen smart
+
+
+bindsym $mod+Escape exec i3lock -c 000000
+
+#bindsym $mod+Tab workspace prev_on_output
+#bindsym $mod+Shift+Tab workspace next_on_output
+
+#sticky
+bindsym $mod+Shift+s sticky toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# enable floating mode for all Specified windows
+# for_window [class="(?i)urxvt"] floating enable
+for_window [class="(?i)mpv"] floating enable
+for_window [class="(?i)xterm"] floating enable
+for_window [class="(?i)feh"] floating enable
+for_window [title=".*Emulator.*"] floating enable
+for_window [class="^.*"] border pixel 0
+for_window [title="Library"] floating enable
+for_window [class="*Underlords*" instance="Places"] floating enable
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+#quick_back_and_forth_work_space
+workspace_auto_back_and_forth yes
+bindsym $mod+z workspace back_and_forth
+
+#brightness control
+#bindsym XF86MonBrightnessUp exec --no-startup-id sudo bright_Up.sh
+#bindsym XF86MonBrightnessDown exec --no-startup-id sudo bright_Down.sh
+
+
+#bindsym XF86Display exec --no-startup-id xset dpms force off
+# focus the parent container
+bindsym $mod+a focus parent
+######grouping workspaces+name####
+#set $ws1 "<span color='#78da59'>1:</span>"
+set $ws1 "1:"
+set $ws2 "<span color='#ffff33'>2:</span>"
+set $ws3 "<span color='#cc00ff'>3:</span>"    
+set $ws4  "<span color='#00A1F1'>4:</span>"
+set $ws5  "<span color='#F65314'>5:</span>"
+set $ws6  "<span color='#f7786b'>6:</span>"
+set $ws7  "<span color='#FBBC05'>7:</span>"
+set $ws8  "<span color='#00ffff'>8:</span>"
+set $ws9   "<span color='#33bdf5'>9:</span>"
+set $ws10  "<span color='#ff66ff'>10:</span>"
+
+
+assign [class="(?i)urxvt"] → $ws1
+assign [class="(?i)firefox"] → $ws2
+assign [class="(?i)vlc"] → $ws3
+assign [class="(?i)dolphin"] → $ws4
+assign [class="(?i)wireshark-gtk"] → $ws8
+assign [class="(?i)Tor Browser"] → $ws9
+assign [class="^Tor Browser$" instance="^Navigator$"] → 3
+
+# switch to workspace
+bindsym $mod+1 workspace  $ws1
+bindsym $mod+2 workspace  $ws2
+bindsym $mod+3 workspace  $ws3
+bindsym $mod+4 workspace  $ws4
+bindsym $mod+5 workspace  $ws5
+bindsym $mod+6 workspace  $ws6
+bindsym $mod+7 workspace  $ws7
+bindsym $mod+8 workspace  $ws8
+bindsym $mod+9 workspace  $ws9
+bindsym $mod+0 workspace  $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -f 'pango:monaco 8' -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+#moving floating windows...
+mode "moveit" {
+#using h,j,k,l=====
+    bindsym k move up 30px
+    bindsym h move left 30px
+    bindsym j move down 30px
+    bindsym l move right 30px
+
+#using arrow keys====
+    bindsym Up move up 30px
+    bindsym Left move left 30px
+    bindsym Down move down 30px
+    bindsym Right move right 30px
+    
+    bindsym Mod4+c mode "default"
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+
+}
+bindsym Mod4+c focus floating; mode "moveit"
+
+
+#:::::::::disable_window_borders::::::::
+for_window [class="^.*"] border pixel 1
+new_window pixel 1
+new_float  normal
+#pixel 1
+
+#:::::i3_ gaps::::::::::::::
+set $default_gaps_inner 10
+set $default_gaps_outer 5
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
+smart_gaps on
+smart_borders on
+
+
+#:::::::::control de volume:::::::::::::
+#bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 2+ unmute"
+#bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 2- unmute"
+#bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
+
+# Customize colors
+client.focused_inactive #0d1010 #212121 #d9d9d9 #0d1010 #063340                                                                            
+client.unfocused        #0d1010 #212121 #d9d9d9 #424242 #063340                                                                            
+client.focused          #d9d9d9 #cecece #000000 #d9d9d9 #d9d9d9        
+client.urgent           #222b2e #222b2e #e25252 #222b2e #222b2e
+client.placeholder      #222b2e #222b2e #eeeeee #222b2e #222b2e
+
+# Do not follow the mouse
+focus_follows_mouse no
+
+
+bar {
+    font pango:DejaVu Sans Mono for Powerline, FontAwesome 8
+    position top
+    status_command /usr/bin/i3status-rs /home/trungkien71297/.config/i3/i3_rs.toml
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
+} 
