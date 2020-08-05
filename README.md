@@ -1,5 +1,6 @@
 # arch_config
 
 Coc Config: 
-  1. vim => :CocConfig
-  2. Paste from .configCoc
+  1. :CocInstall coc-go 
+  2. :CocConfig
+  3. Paste from .configCoc
